@@ -1,4 +1,4 @@
-package org.forbiddenwordgame.BaseModule;
+package org.forbiddenwordgame.Module.BaseModule;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;

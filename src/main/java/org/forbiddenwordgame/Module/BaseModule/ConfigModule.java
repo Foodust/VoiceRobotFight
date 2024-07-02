@@ -1,4 +1,4 @@
-package org.forbiddenwordgame.BaseModule;
+package org.forbiddenwordgame.Module.BaseModule;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

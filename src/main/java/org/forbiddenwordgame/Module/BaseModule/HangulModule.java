@@ -1,4 +1,4 @@
-package org.forbiddenwordgame.BaseModule;
+package org.forbiddenwordgame.Module.BaseModule;
 
 // Josa 를 붙이기 위함
 public class HangulModule {

@@ -9,6 +9,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.forbiddenwordgame.Command.CommandManager;
 import org.forbiddenwordgame.Data.TaskData;
 import org.forbiddenwordgame.Event.EventManager;
+import org.forbiddenwordgame.Module.GameModule.GameModule;
 
 import java.util.logging.Logger;
 
@@ -17,6 +18,7 @@ public final class ForbiddenWordGame extends JavaPlugin {
     private BukkitAudiences adventure;
     private Plugin plugin;
     private Logger log;
+    private GameModule gameModule;
 
     public @NonNull BukkitAudiences getAdventure() {
         if (this.adventure == null) {
@@ -33,6 +35,8 @@ public final class ForbiddenWordGame extends JavaPlugin {
         this.plugin = this;
         CommandManager commandManager = new CommandManager(this);
         EventManager eventManager = new EventManager(this.getServer(), this);
+
+        this.gameModule = new GameModule(this);
     }
 
     @Override

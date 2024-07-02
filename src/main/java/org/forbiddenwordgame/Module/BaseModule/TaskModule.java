@@ -1,4 +1,4 @@
-package org.forbiddenwordgame.BaseModule;
+package org.forbiddenwordgame.Module.BaseModule;
 
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
