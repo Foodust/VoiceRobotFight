@@ -28,7 +28,8 @@ public class CommandManager implements CommandExecutor {
             BaseMessage byMessage = BaseMessage.getByMessage(data[0]);
             switch (byMessage) {
                 case COMMAND_TEST -> gameModule.testGame((Player) sender);
-                case COMMAND_RELOAD -> gameModule.reloadGame((Player)sender);
+                case COMMAND_RELOAD -> gameModule.reloadGame((Player) sender);
+                case COMMAND_ROULETTE -> gameModule.roulette((Player) sender);
                 case COMMAND_START -> gameModule.startGame((Player) sender);
                 case COMMAND_STOP -> gameModule.stopGame((Player) sender);
             }

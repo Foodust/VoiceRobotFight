@@ -17,6 +17,7 @@ public enum BaseMessage {
     // command
     COMMAND_FORBIDDEN_WORD_GAME("금칙어게임"),
     COMMAND_TEST("테스트"),
+    COMMAND_ROULETTE("룰렛"),
     COMMAND_RELOAD("리로드"),
     COMMAND_START("시작"),
     COMMAND_STOP("종료"),
