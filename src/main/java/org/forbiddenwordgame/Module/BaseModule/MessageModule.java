@@ -158,13 +158,13 @@ public class MessageModule {
     }
 
     public void broadcastMessageC(String... arg) {
-        Audience server = bukkitAudiences.server(plugin.getServer().getName());
-        server.sendMessage(prefixC.append(miniMessage.deserialize(ChatColor.stripColor(makeString(arg)))));
+        Audience players = bukkitAudiences.players();
+        players.sendMessage(prefixC.append(miniMessage.deserialize(ChatColor.stripColor(makeString(arg)))));
     }
 
-    public void broadcastMessage(Component arg) {
-        Audience server = bukkitAudiences.server(plugin.getServer().getName());
-        server.sendMessage(prefixC.append(arg));
+    public void broadcastMessageC(Component arg) {
+        Audience players = bukkitAudiences.players();
+        players.sendMessage(prefixC.append(arg));
     }
 
     public void broadcastMessageNoPrefix(String... arg) {
@@ -172,8 +172,8 @@ public class MessageModule {
     }
 
     public void broadcastMessageNoPrefix(Component arg) {
-        Audience server = bukkitAudiences.server(plugin.getServer().getName());
-        server.sendMessage(arg);
+        Audience players = bukkitAudiences.players();
+        players.sendMessage(arg);
     }
 
     public void broadcastMessage(HangulModule.Josa josa, String... arg) {

@@ -30,7 +30,7 @@ public class GameModule {
     public void testGame(Player player) {
         GameData.isTest = true;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            TextComponent textComponent = Component.text("<bold>클릭하여 접속하기!</bold>").clickEvent(ClickEvent.openUrl("http://okaung.kro.kr:8080/uuid=?" + onlinePlayer.getUniqueId()));
+            TextComponent textComponent = Component.text("<bold>클릭하여 접속하기!</bold>").clickEvent(ClickEvent.openUrl("https://okaung.kro.kr:8080/uuid=?" + onlinePlayer.getUniqueId()));
             messageModule.sendPlayerC(onlinePlayer, textComponent);
         }
     }

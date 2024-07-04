@@ -28,7 +28,7 @@ public class RequestModule implements HttpHandler {
     }
 
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
         if ("POST".equals(exchange.getRequestMethod())) {
             CompletableFuture.runAsync(() -> {
                 try {
