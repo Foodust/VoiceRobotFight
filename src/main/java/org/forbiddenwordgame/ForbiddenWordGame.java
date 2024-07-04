@@ -1,5 +1,8 @@
 package org.forbiddenwordgame;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
@@ -10,7 +13,10 @@ import org.forbiddenwordgame.Command.CommandManager;
 import org.forbiddenwordgame.Data.TaskData;
 import org.forbiddenwordgame.Event.EventManager;
 import org.forbiddenwordgame.Module.GameModule.GameModule;
+import org.forbiddenwordgame.Module.GameModule.RequestModule;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.logging.Logger;
 
 @Getter
@@ -35,8 +41,15 @@ public final class ForbiddenWordGame extends JavaPlugin {
         this.plugin = this;
         CommandManager commandManager = new CommandManager(this);
         EventManager eventManager = new EventManager(this.getServer(), this);
-
         this.gameModule = new GameModule(this);
+
+        try{
+            HttpServer server = HttpServer.create(new InetSocketAddress("localhost", 8081), 0);
+            server.createContext("/forbiddenwordgame", new RequestModule(this));
+            server.setExecutor(null);
+            server.start();
+        }catch (Exception ignore){
+        }
     }
 
     @Override

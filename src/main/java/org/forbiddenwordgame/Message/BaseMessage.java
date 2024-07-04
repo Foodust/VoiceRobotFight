@@ -12,16 +12,25 @@ public enum BaseMessage {
 
     // prefix
     PREFIX(""),
-    PREFIX_C("as"),
+    PREFIX_C("<gradiant:blue:green><bold>[금칙어게임]</bold></gradiant> "),
 
     // command
-    COMMAND_(""),
+    COMMAND_FORBIDDEN_WORD_GAME("금칙어게임"),
+    COMMAND_TEST("테스트"),
+    COMMAND_RELOAD("리로드"),
+    COMMAND_START("시작"),
+    COMMAND_STOP("종료"),
 
     // 기본
     DEFAULT("기본"),
-        // Error
+
+    // Error
+
     ERROR("에러"),
-    ERROR_COMMAND(ChatColor.DARK_RED + "잘못된 명령어입니다.")
+    ERROR_COMMAND("<dark_red>잘못된 명령어입니다.</dark_red>"),
+
+    ERROR_GAME_IS_START("<dark_red>게임이 이미 시작 되었습니다..</dark_red>"),
+    ERROR_GAME_IS_NOT_START("<dark_red>게임이 시작 되지 않았습니다.</dark_red>"),
     ;
 
     private final String message;
@@ -33,7 +42,7 @@ public enum BaseMessage {
     private static final Map<String, BaseMessage> commandInfo = new HashMap<>();
 
     static {
-        for (BaseMessage baseMessage : EnumSet.range(COMMAND_, COMMAND_)) {
+        for (BaseMessage baseMessage : EnumSet.range(COMMAND_FORBIDDEN_WORD_GAME, COMMAND_STOP)) {
             commandInfo.put(baseMessage.message, baseMessage);
         }
     }
