@@ -3,6 +3,7 @@ package org.forbiddenwordgame.Module.GameModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,8 +34,8 @@ public class GameModule {
     public void testGame(Player player) {
         GameData.isTest = true;
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            TextComponent textComponent = Component.text("<bold>클릭하여 접속하기!</bold>").clickEvent(ClickEvent.openUrl("https://okaung.kro.kr:8080/uuid=?" + onlinePlayer.getUniqueId()));
-            messageModule.sendPlayerC(onlinePlayer, textComponent);
+            TextComponent textComponent = Component.text("클릭하여 접속하기!").clickEvent(ClickEvent.openUrl("https://okaung.kro.kr:8080/uuid=?" + onlinePlayer.getUniqueId()));
+            messageModule.sendPlayerNoPrefixC(onlinePlayer, textComponent);
         }
     }
 

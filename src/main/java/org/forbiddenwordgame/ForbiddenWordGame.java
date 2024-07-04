@@ -12,6 +12,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.forbiddenwordgame.Command.CommandManager;
 import org.forbiddenwordgame.Data.TaskData;
 import org.forbiddenwordgame.Event.EventManager;
+import org.forbiddenwordgame.Module.BaseModule.ConfigModule;
 import org.forbiddenwordgame.Module.GameModule.GameModule;
 import org.forbiddenwordgame.Module.GameModule.RequestModule;
 
@@ -41,6 +42,7 @@ public final class ForbiddenWordGame extends JavaPlugin {
         this.plugin = this;
         CommandManager commandManager = new CommandManager(this);
         EventManager eventManager = new EventManager(this.getServer(), this);
+        new ConfigModule(this).getWords();
         this.gameModule = new GameModule(this);
 
         try{

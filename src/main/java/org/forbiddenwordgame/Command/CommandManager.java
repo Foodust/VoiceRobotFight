@@ -23,8 +23,7 @@ public class CommandManager implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] data) {
-        if (data.length <= 1) return false;
-        if (command.getName().equalsIgnoreCase(BaseMessage.COMMAND_FORBIDDEN_WORD_GAME.getMessage())) {
+        if (label.equals(BaseMessage.COMMAND_FORBIDDEN_WORD_GAME.getMessage())) {
             BaseMessage byMessage = BaseMessage.getByMessage(data[0]);
             switch (byMessage) {
                 case COMMAND_TEST -> gameModule.testGame((Player) sender);

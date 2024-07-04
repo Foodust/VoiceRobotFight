@@ -73,6 +73,20 @@ public class MessageModule {
         player.sendMessage(hangulModule.getJosa(word, josa) + makeString(arg));
     }
 
+    public void sendPlayerNoPrefixC(Player player, String word, HangulModule.Josa josa, String... arg) {
+        Component deserialize = miniMessage.deserialize(hangulModule.getJosa(word, josa) + ChatColor.stripColor(makeString(arg)));
+        bukkitAudiences.player(player).sendMessage(prefixC.append(deserialize));
+    }
+
+    public void sendPlayerNoPrefixC(Player player, Component component) {
+        bukkitAudiences.player(player).sendMessage(component);
+    }
+
+    public void sendPlayerNoPrefixC(Player player, String... arg) {
+        Component deserialize = miniMessage.deserialize(makeString(arg));
+        bukkitAudiences.player(player).sendMessage(prefixC.append(deserialize));
+    }
+
     public void sendPlayerNoPrefix(CommandSender player, String... arg) {
         player.sendMessage(makeString(arg));
     }
