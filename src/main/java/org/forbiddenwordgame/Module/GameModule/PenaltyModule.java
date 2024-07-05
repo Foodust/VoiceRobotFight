@@ -22,7 +22,7 @@ public class PenaltyModule {
     public void penaltyPlayer(Player player) {
         int random = new Random().nextInt(10);
         switch (random) {
-            case 0 -> deathPenalty(player);
+            case 0, 7, 8, 9 -> deathPenalty(player);
             case 1 -> hitPenalty(player);
             case 2 -> jumpPenalty(player);
             case 3 -> confusionPenalty(player);
