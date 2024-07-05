@@ -1,6 +1,7 @@
 package org.forbiddenwordgame.Module.GameModule;
 
 import org.bukkit.entity.Player;
+import org.forbiddenwordgame.Data.Info.PlayerInfo;
 import org.forbiddenwordgame.Data.PlayerData;
 import org.forbiddenwordgame.ForbiddenWordGame;
 
@@ -12,11 +13,12 @@ public class WordModule {
     }
 
     public void playerWording(Player player, String words) {
-        if (!PlayerData.words.containsKey(player)) return;
-        if (!PlayerData.words.get(player).isEmpty()) return;
-
-        for (String word : PlayerData.words.get(player)) {
+        if (!PlayerData.playerInfo.containsKey(player)) return;
+        if (!PlayerData.playerInfo.get(player).getWords().isEmpty()) return;
+        PlayerInfo playerInfo = PlayerData.playerInfo.get(player);
+        for (String word : playerInfo.getWords()) {
             if (words.contains(word)) {
+                playerInfo.setCount(playerInfo.getCount() + 1);
                 penaltyModule.penaltyPlayer(player);
                 break;
             }

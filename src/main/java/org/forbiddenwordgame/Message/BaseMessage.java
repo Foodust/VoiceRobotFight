@@ -20,6 +20,7 @@ public enum BaseMessage {
     COMMAND_TEST("테스트"),
     COMMAND_ROULETTE("룰렛"),
     COMMAND_RELOAD("리로드"),
+    COMMAND_RESULT("결과"),
     COMMAND_STOP("종료"),
 
     // 기본

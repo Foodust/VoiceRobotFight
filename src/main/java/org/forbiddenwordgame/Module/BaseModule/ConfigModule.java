@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.forbiddenwordgame.Data.GameData;
+import org.forbiddenwordgame.Data.Info.PlayerInfo;
 import org.forbiddenwordgame.Data.PlayerData;
 import org.forbiddenwordgame.ForbiddenWordGame;
 
@@ -45,7 +45,10 @@ public class ConfigModule {
             List<String> words = config.getStringList(name);
             Player player = Bukkit.getPlayer(name);
             if (player == null) continue;
-            PlayerData.words.put(player, words);
+            PlayerInfo playerInfo = PlayerInfo.builder()
+                    .words(words)
+                    .build();
+            PlayerData.playerInfo.put(player, playerInfo);
         }
     }
 }
