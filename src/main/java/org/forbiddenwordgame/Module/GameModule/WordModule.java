@@ -16,7 +16,7 @@ public class WordModule {
         if (!PlayerData.words.get(player).isEmpty()) return;
 
         for (String word : PlayerData.words.get(player)) {
-            if (word.contains(words)) {
+            if (words.contains(word)) {
                 penaltyModule.penaltyPlayer(player);
                 break;
             }
