@@ -1,16 +1,22 @@
 package org.forbiddenwordgame.Module.GameModule;
 
+import org.bukkit.Material;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.forbiddenwordgame.Data.TickData;
 import org.forbiddenwordgame.ForbiddenWordGame;
+import org.forbiddenwordgame.Module.BaseModule.TaskModule;
 
 import java.util.Random;
 
 public class PenaltyModule {
-    public PenaltyModule(ForbiddenWordGame plugin) {
+    private final TaskModule taskModule;
 
+    public PenaltyModule(ForbiddenWordGame plugin) {
+        this.taskModule = new TaskModule(plugin);
     }
 
     public void penaltyPlayer(Player player) {
@@ -22,6 +28,7 @@ public class PenaltyModule {
             case 3 -> confusionPenalty(player);
             case 4 -> blindPenalty(player);
             case 5 -> poisonPenalty(player);
+            case 6 -> anvilPenalty(player);
         }
     }
 
@@ -50,5 +57,16 @@ public class PenaltyModule {
 
     public void poisonPenalty(Player player) {
         player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 4, 4));
+    }
+
+    public void anvilPenalty(Player player) {
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4, 99));
+        FallingBlock fallingBlock = player.getWorld().spawnFallingBlock(player.getLocation().add(0, 20, 0), Material.ANVIL.createBlockData());
+        fallingBlock.setHurtEntities(true);
+        fallingBlock.setMaxDamage(4000);
+        fallingBlock.setDropItem(false);
+        fallingBlock.setCustomName("정의의 모루");
+        fallingBlock.setCustomNameVisible(true);
+        taskModule.runBukkitTaskLater(fallingBlock::remove, 5 * TickData.longTick);
     }
 }
