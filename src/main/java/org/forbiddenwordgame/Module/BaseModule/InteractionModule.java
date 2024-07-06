@@ -3,12 +3,11 @@ package org.forbiddenwordgame.Module.BaseModule;
 import org.bukkit.Location;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.Player;
-import org.mcdemonas.Data.ItemData;
-import org.mcdemonas.McDemonas;
+import org.forbiddenwordgame.ForbiddenWordGame;
 
 public class InteractionModule {
 
-    public InteractionModule(McDemonas plugin) {
+    public InteractionModule(ForbiddenWordGame plugin) {
     }
 
     public Interaction makeInteraction(Player player, Location location, Float height, Float width, String title) {
@@ -20,7 +19,6 @@ public class InteractionModule {
         interaction.setGravity(false);
         interaction.setInvulnerable(true);
         interaction.setResponsive(true);
-        ItemData.makeEntity.add(interaction);
         return interaction;
     }
 }

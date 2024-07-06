@@ -20,9 +20,9 @@ public class PenaltyModule {
     }
 
     public void penaltyPlayer(Player player) {
-        int random = new Random().nextInt(10);
+        int random = new Random().nextInt(7);
         switch (random) {
-            case 0, 7, 8, 9 -> deathPenalty(player);
+            case 0 -> deathPenalty(player);
             case 1 -> hitPenalty(player);
             case 2 -> jumpPenalty(player);
             case 3 -> confusionPenalty(player);
@@ -48,19 +48,19 @@ public class PenaltyModule {
     }
 
     public void confusionPenalty(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 4, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 10 * TickData.intTick, 5));
     }
 
     public void blindPenalty(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4, 5));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4* TickData.intTick, 5));
     }
 
     public void poisonPenalty(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 4, 4));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 4 * TickData.intTick, 4));
     }
 
     public void anvilPenalty(Player player) {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4, 99));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4* TickData.intTick, 99));
         FallingBlock fallingBlock = player.getWorld().spawnFallingBlock(player.getLocation().add(0, 20, 0), Material.ANVIL.createBlockData());
         fallingBlock.setHurtEntities(true);
         fallingBlock.setMaxDamage(4000);

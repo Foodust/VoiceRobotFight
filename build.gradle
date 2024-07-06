@@ -56,7 +56,7 @@ processResources {
 }
 jar{
     archiveFileName = 'FobiddenWordGame.jar'
-    destinationDirectory = file("C:\\Users\\home\\Desktop\\게임\\server1.20.2\\plugins")
+    destinationDirectory = file("C:\\Users\\home\\Desktop\\Game\\server1.20.2\\plugins")
     manifest {
         attributes 'Main-Class': 'org.forbiddenwordgame.ForbiddenWordGame'
     }
