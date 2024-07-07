@@ -14,6 +14,8 @@ import org.forbiddenwordgame.Module.BaseModule.TaskModule;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -48,11 +50,18 @@ public class RequestModule implements HttpHandler {
                     }
                     if (GameData.isTest) {
                         messageModule.broadcastMessageC(player.getName() + " : " + data);
-                        return;
                     }
-                    if (GameData.isGame) {
+                    else if (GameData.isGame) {
                         wordModule.playerWording(player, data);
                     }
+                    String response = "{\"status\": \"success\", \"message\": \"Data received successfully\"}";
+                    byte[] responseBytes = response.getBytes(StandardCharsets.UTF_8);
+                    exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+                    exchange.sendResponseHeaders(200, responseBytes.length);
+                    // 응답 본문 작성
+                    OutputStream os = exchange.getResponseBody();
+                    os.write(responseBytes);
+                    os.close();
 
                 } catch (Exception exception) {
                     messageModule.broadcastMessageC(exception.getMessage());

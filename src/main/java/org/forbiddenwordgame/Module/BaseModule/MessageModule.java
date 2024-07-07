@@ -173,7 +173,7 @@ public class MessageModule {
 
     public void broadcastMessageC(String... arg) {
         Audience players = bukkitAudiences.players();
-        players.sendMessage(prefixC.append(miniMessage.deserialize(ChatColor.stripColor(makeString(arg)))));
+        players.sendMessage(prefixC.append(miniMessage.deserialize(makeString(arg))));
     }
 
     public void broadcastMessageC(Component arg) {

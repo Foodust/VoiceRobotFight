@@ -12,7 +12,7 @@ public enum BaseMessage {
 
     // prefix
     PREFIX(""),
-    PREFIX_C("<gradiant:blue:green><bold>[금칙어게임]</bold></gradiant> "),
+    PREFIX_C("<gradient:blue:green><bold>[금칙어게임]</bold></gradient> "),
 
     // command
     COMMAND_FORBIDDEN_WORD_GAME("금칙어게임"),
