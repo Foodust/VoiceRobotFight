@@ -63,7 +63,6 @@ public class PenaltyModule {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4* TickData.intTick, 99));
         FallingBlock fallingBlock = player.getWorld().spawnFallingBlock(player.getLocation().add(0, 20, 0), Material.ANVIL.createBlockData());
         fallingBlock.setHurtEntities(true);
-        fallingBlock.setMaxDamage(4000);
         fallingBlock.setDropItem(false);
         fallingBlock.setCustomName("정의의 모루");
         fallingBlock.setCustomNameVisible(true);
