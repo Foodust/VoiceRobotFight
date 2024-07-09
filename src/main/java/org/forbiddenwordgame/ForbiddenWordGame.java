@@ -14,7 +14,6 @@ import org.forbiddenwordgame.Event.EventManager;
 import org.forbiddenwordgame.Module.BaseModule.ConfigModule;
 import org.forbiddenwordgame.Module.GameModule.GameModule;
 import org.forbiddenwordgame.Module.GameModule.RequestModule;
-import org.forbiddenwordgame.Module.GameModule.SSLContextUtil;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -22,8 +21,6 @@ import javax.net.ssl.TrustManagerFactory;
 import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
 import java.util.logging.Logger;
 
 @Getter
@@ -32,25 +29,15 @@ public final class ForbiddenWordGame extends JavaPlugin {
     private Plugin plugin;
     private Logger log;
     private GameModule gameModule;
-
+    private HttpsServer httpsServer = null;
     public @NonNull BukkitAudiences getAdventure() {
         if (this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
         }
         return this.adventure;
     }
-
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
-        this.log = Bukkit.getLogger();
-        this.adventure = BukkitAudiences.create(this);
-        this.plugin = this;
-        CommandManager commandManager = new CommandManager(this);
-        EventManager eventManager = new EventManager(this.getServer(), this);
-        new ConfigModule(this).getWords();
-        this.gameModule = new GameModule(this);
-
+    public ForbiddenWordGame() {
+        super();
         try {
             String keystorePath = getDataFolder().getAbsolutePath() + "/server.jks";
             char[] keystorePassword = "123456".toCharArray();
@@ -69,20 +56,35 @@ public final class ForbiddenWordGame extends JavaPlugin {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 
-            HttpsServer server = HttpsServer.create(new InetSocketAddress("okangun.kro.kr", 8081), 0);
-            server.setHttpsConfigurator(new HttpsConfigurator(sslContext));
-            server.createContext("/word", new RequestModule(this));
-            server.setExecutor(null);
-            server.start();
+            httpsServer = HttpsServer.create(new InetSocketAddress("okangun.kro.kr", 8081), 0);
+            httpsServer.setHttpsConfigurator(new HttpsConfigurator(sslContext));
+            httpsServer.createContext("/word", new RequestModule(this));
+            httpsServer.setExecutor(null);
+            httpsServer.start();
         } catch (Exception exception) {
             log.info(exception.getMessage());
         }
     }
 
     @Override
+    public void onEnable() {
+        // Plugin startup logic
+        this.log = Bukkit.getLogger();
+        this.adventure = BukkitAudiences.create(this);
+        this.plugin = this;
+        CommandManager commandManager = new CommandManager(this);
+        EventManager eventManager = new EventManager(this.getServer(), this);
+        new ConfigModule(this).getWords();
+        this.gameModule = new GameModule(this);
+
+    }
+
+    @Override
     public void onDisable() {
         // Plugin shutdown logic
-
+        if(httpsServer != null) {
+            httpsServer.stop(0);
+        }
         if (this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
