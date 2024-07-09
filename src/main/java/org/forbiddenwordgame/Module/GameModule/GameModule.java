@@ -68,33 +68,40 @@ public class GameModule {
         Vector direction = location.getDirection().clone().multiply(4);
 
         Location textDisplayLocation = location.clone().add(direction);
-        textDisplayLocation.setY(location.getY() + 5);
+        textDisplayLocation.setY(location.getY() + 6);
         Vector textDisplayDirection = location.toVector().subtract(textDisplayLocation.toVector()).normalize();
         textDisplayDirection.setY(0);
         float yaw = (float) Math.toDegrees(Math.atan2(textDisplayDirection.getZ(), textDisplayDirection.getX())) - 90;
         float pitch = (float) Math.toDegrees(Math.asin(textDisplayDirection.getY()));
 
+        textDisplayLocation.add(textDisplayDirection.clone().normalize().multiply(0.01));
         // GUI 생성
-        BlockDisplay blockDisplay = displayModule.makeBlockDisplay(player, textDisplayLocation, Material.BLACK_CONCRETE, 10.0);
-        blockDisplay.setRotation(yaw, pitch);
-        Transformation transformation = blockDisplay.getTransformation();
-        transformation.getScale().set(10, 10, 0.01);
-        blockDisplay.setTransformation(transformation);
-
-        TextDisplay statusInventoryDisplay = displayModule.makeTextDisplay(player, textDisplayLocation.add(textDisplayDirection.clone().normalize().multiply(0.01)), "결과", 2.0);
+        TextDisplay statusInventoryDisplay = displayModule.makeTextDisplay(player, textDisplayLocation, "결과", 2.0);
         statusInventoryDisplay.setRotation(yaw, pitch);
         statusInventoryDisplay.setAlignment(TextDisplay.TextAlignment.CENTER);
 
-        float i = 0.5f;
+        TextDisplay nameMessageDisplay = displayModule.makeTextDisplay(player, textDisplayLocation.clone().add(0, -1, 0), "닉네임", 2.0);
+        nameMessageDisplay.setRotation(yaw, pitch);
+        nameMessageDisplay.setAlignment(TextDisplay.TextAlignment.CENTER);
+
+        TextDisplay countMessageDisplay = displayModule.makeTextDisplay(player, textDisplayLocation.clone().add(0, -2, 0), "걸린 횟수", 2.0);
+        countMessageDisplay.setRotation(yaw, pitch);
+        countMessageDisplay.setAlignment(TextDisplay.TextAlignment.CENTER);
+
+        TextDisplay deathMessageDisplay = displayModule.makeTextDisplay(player, textDisplayLocation.clone().add(0, -3, 0), "죽은 횟수", 2.0);
+        deathMessageDisplay.setRotation(yaw, pitch);
+        deathMessageDisplay.setAlignment(TextDisplay.TextAlignment.CENTER);
+
+        float i = 0f;
         for (Map.Entry<Player, PlayerInfo> entry : PlayerData.playerInfo.entrySet()) {
-            i += 0.5f;
+            i += 2.0f;
             Player key = entry.getKey();
             PlayerInfo value = entry.getValue();
             Vector right = textDisplayDirection.clone().crossProduct(new Vector(0, 1, 0)).normalize().multiply(i);
             Location resultRight = textDisplayLocation.clone().add(right);
             Location nameLocation = resultRight.clone().add(0, -1, 0).add(textDisplayDirection.clone().normalize().multiply(0.01));
             Location countLocation = resultRight.clone().add(0, -2, 0).add(textDisplayDirection.clone().normalize().multiply(0.01));
-            Location deathCountLocation = resultRight.clone().add(0, -4, 0).add(textDisplayDirection.clone().normalize().multiply(0.01));
+            Location deathCountLocation = resultRight.clone().add(0, -3, 0).add(textDisplayDirection.clone().normalize().multiply(0.01));
 
             TextDisplay nameDisplay = displayModule.makeTextDisplay(player, nameLocation, key.getName(), 2.0);
             nameDisplay.setRotation(yaw, pitch);
