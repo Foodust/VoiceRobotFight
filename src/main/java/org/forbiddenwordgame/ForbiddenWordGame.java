@@ -36,8 +36,18 @@ public final class ForbiddenWordGame extends JavaPlugin {
         }
         return this.adventure;
     }
-    public ForbiddenWordGame() {
-        super();
+
+    @Override
+    public void onEnable() {
+        // Plugin startup logic
+        this.log = Bukkit.getLogger();
+        this.adventure = BukkitAudiences.create(this);
+        this.plugin = this;
+        CommandManager commandManager = new CommandManager(this);
+        EventManager eventManager = new EventManager(this.getServer(), this);
+        new ConfigModule(this).getWords();
+        this.gameModule = new GameModule(this);
+        Bukkit.broadcastMessage("asdasd");
         try {
             String keystorePath = getDataFolder().getAbsolutePath() + "/server.jks";
             char[] keystorePassword = "123456".toCharArray();
@@ -62,21 +72,8 @@ public final class ForbiddenWordGame extends JavaPlugin {
             httpsServer.setExecutor(null);
             httpsServer.start();
         } catch (Exception exception) {
-            log.info(exception.getMessage());
+            Bukkit.broadcastMessage(exception.getMessage());
         }
-    }
-
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
-        this.log = Bukkit.getLogger();
-        this.adventure = BukkitAudiences.create(this);
-        this.plugin = this;
-        CommandManager commandManager = new CommandManager(this);
-        EventManager eventManager = new EventManager(this.getServer(), this);
-        new ConfigModule(this).getWords();
-        this.gameModule = new GameModule(this);
-
     }
 
     @Override
