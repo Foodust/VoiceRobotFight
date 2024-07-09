@@ -94,7 +94,7 @@ public class GameModule {
 
         float i = 0f;
         for (Map.Entry<Player, PlayerInfo> entry : PlayerData.playerInfo.entrySet()) {
-            i += 2.0f;
+            i += 1.0f;
             Player key = entry.getKey();
             PlayerInfo value = entry.getValue();
             Vector right = textDisplayDirection.clone().crossProduct(new Vector(0, 1, 0)).normalize().multiply(i);
