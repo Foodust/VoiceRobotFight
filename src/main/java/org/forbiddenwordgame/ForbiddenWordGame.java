@@ -30,6 +30,7 @@ public final class ForbiddenWordGame extends JavaPlugin {
     private Logger log;
     private GameModule gameModule;
     private HttpsServer httpsServer = null;
+
     public @NonNull BukkitAudiences getAdventure() {
         if (this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
@@ -47,7 +48,6 @@ public final class ForbiddenWordGame extends JavaPlugin {
         EventManager eventManager = new EventManager(this.getServer(), this);
         new ConfigModule(this).getWords();
         this.gameModule = new GameModule(this);
-        Bukkit.broadcastMessage("asdasd");
         try {
             String keystorePath = getDataFolder().getAbsolutePath() + "/server.jks";
             char[] keystorePassword = "123456".toCharArray();
@@ -72,14 +72,14 @@ public final class ForbiddenWordGame extends JavaPlugin {
             httpsServer.setExecutor(null);
             httpsServer.start();
         } catch (Exception exception) {
-            Bukkit.broadcastMessage(exception.getMessage());
+            log.warning(exception.getMessage());
         }
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        if(httpsServer != null) {
+        if (httpsServer != null) {
             httpsServer.stop(0);
         }
         if (this.adventure != null) {
